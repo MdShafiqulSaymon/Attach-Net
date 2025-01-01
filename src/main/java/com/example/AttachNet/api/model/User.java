@@ -25,13 +25,15 @@ public class User {
     private String email;
 
     @Column
-    private Integer role;
+    private String role;
 
     @Column
-    private String number;
+    private String phone;
+    @Column
+    private  String password;
 
 
-    public User(Integer id, String sid, String username, String batch, String dept, String email, Integer role, String number) {
+    public User(Integer id, String sid, String username, String batch, String dept, String email, String role, String phone,String password) {
         this.id = id;
         this.sid=sid;
         this.username = username;
@@ -39,7 +41,8 @@ public class User {
         this.dept = dept;
         this.email = email;
         this.role = role;
-        this.number = number;
+        this.phone = phone;
+        this.password=password;
     }
 
     // Default Constructor
@@ -94,19 +97,39 @@ public class User {
         this.email = email;
     }
 
-    public Integer getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public String getNumber() {
-        return number;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+               "sid='" + sid + '\'' +
+               ", username='" + username + '\'' +
+               ", batch='" + batch + '\'' +
+               ", dept='" + dept + '\'' +
+               ", email='" + email + '\'' +
+               ", role='" + role + '\'' +
+               ", phone='" + phone + '\'' +
+               ", password='" + password + '\'' +
+               '}';
     }
 }

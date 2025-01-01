@@ -19,8 +19,10 @@ public class UserTransformer {
         userDTO.setDept(user.getDept());
         userDTO.setEmail(user.getEmail());
         userDTO.setRole(user.getRole());
-        userDTO.setNumber(user.getNumber());
-        userDTO.setSid(user.getSid());  // Include sid in the conversion
+        userDTO.setPhone(user.getPhone());
+        userDTO.setSid(user.getSid());
+        userDTO.setPassword(user.getPassword());
+        System.out.println("from transformer :" + userDTO);
         return userDTO;
     }
 
@@ -33,8 +35,9 @@ public class UserTransformer {
         user.setDept(userDTO.getDept());
         user.setEmail(userDTO.getEmail());
         user.setRole(userDTO.getRole());
-        user.setNumber(userDTO.getNumber());
-        user.setSid(userDTO.getSid());  // Include sid in the conversion
+        user.setPhone(userDTO.getPhone());
+        user.setSid(userDTO.getSid());
+        user.setPassword(userDTO.getPassword());
         return user;
     }
     public List<UserDto> convertToDTOList(List<User> users) {

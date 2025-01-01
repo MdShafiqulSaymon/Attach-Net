@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/auth")
+@CrossOrigin
 public class UserController {
     private UserService userService;
 
@@ -23,7 +24,6 @@ public class UserController {
     @PostMapping(value = "/create",produces ="application/json")
     public ResponseEntity<UserDto>createUser(@Valid @RequestBody UserDto userDto ){
         UserDto createdUser=userService.createUser(userDto);
-        System.out.println(userDto);
         return ResponseEntity.ok(createdUser);
     }
     @GetMapping(value = "/all",produces ="application/json")
