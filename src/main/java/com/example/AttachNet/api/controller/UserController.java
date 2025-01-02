@@ -1,8 +1,10 @@
 package com.example.AttachNet.api.controller;
 
 import com.example.AttachNet.api.dto.LoginRequestDto;
+import com.example.AttachNet.api.dto.LoginResponse;
 import com.example.AttachNet.api.dto.UserDto;
 import com.example.AttachNet.api.model.User;
+import com.example.AttachNet.api.service.JwtService;
 import com.example.AttachNet.api.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,10 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+    @Autowired
+    JwtService jwtService;
 
-    // Authentication endpoints
+    // Authentication endpoints Without JWT Token
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto loginRequest) {
         try {
@@ -40,8 +44,26 @@ public class UserController {
                 .body(createErrorResponse("Invalid credentials", e.getMessage()));
         }
     }
+    // Authentication endpoints Without JWT Token
+    @PostMapping("/signup")
+    public ResponseEntity<User> register(@RequestBody UserDto userDto) {
+        User registeredUser = userService.signup(userDto);
 
-    // User management endpoints
+        return ResponseEntity.ok(registeredUser);
+    }
+
+    // Registration endpoints With BCrypt
+    @PostMapping("/signin")
+    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginRequestDto loginUserDto) {
+        User authenticatedUser = userService.authenticate(loginUserDto);
+
+        String jwtToken = jwtService.generateToken(authenticatedUser);
+
+        LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
+
+        return ResponseEntity.ok(loginResponse);
+    }
+    // User management Registration endpoints Without BCrypt
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@Valid @RequestBody UserDto userDto) {
         try {

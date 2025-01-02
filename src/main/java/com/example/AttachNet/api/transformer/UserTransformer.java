@@ -22,7 +22,6 @@ public class UserTransformer {
         userDTO.setPhone(user.getPhone());
         userDTO.setSid(user.getSid());
         userDTO.setPassword(user.getPassword());
-        System.out.println("from transformer :" + userDTO);
         return userDTO;
     }
 
