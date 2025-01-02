@@ -47,4 +47,16 @@ public class UserService {
     public void deleteUser(Integer id) {
         userRepo.deleteById(id);
     }
+    public UserDto login(String email, String password) {
+        User user = userRepo.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+        
+        // Check password
+        if (!user.getPassword().equals(password)) {
+            throw new RuntimeException("Invalid password");
+        }
+        
+        // Convert to DTO and return
+        return userTransformer.convertToDTO(user);
+    }
 }
